@@ -1,12 +1,10 @@
-import Pawn from "./moves/Pawn";
-import Knight from "./moves/Knight";
-import Rook from "./moves/Rook";
-import Bishop from "./moves/Bishop";
-import Queen from "./moves/Queen";
-import King from "./moves/King";
 
-var positionColor = "#13970075";
-var colorInRGB = "rgba(19, 151, 0, 0.46)";
+import Checkmate from "./Checkmate";
+import ChessMoves from "./moves/ChessMoves";
+import WinAudio from "../assets/sounds/win.wav"
+
+var positionColor = "#76fb646e";
+var colorInRGB = "rgba(118, 251, 100, 0.43)";
 
 export default function Play(e){
     
@@ -36,20 +34,7 @@ export default function Play(e){
 
         const piece = click.children[0].children[1].className;
 
-
-        if(piece.includes("pawn")){
-            Pawn(row, col, piece, positionColor);
-        } else if(piece.includes("knight")){
-            Knight(row, col, piece, positionColor);
-        } else if(piece.includes("rook")){
-            Rook(row, col, piece, positionColor);
-        } else if(piece.includes("bishop")){
-            Bishop(row, col, piece, positionColor);
-        } else if(piece.includes("queen")){
-            Queen(row, col, piece, positionColor);
-        } else if(piece.includes("king")){
-            King(row, col, piece, positionColor);
-        }
+        ChessMoves(row, col, piece, positionColor);
         
         }
     } else {
@@ -75,14 +60,19 @@ function piecesPattern(e){
         } else {
             blackContainer.appendChild(click.parentElement);
         }
-
+        let winingAudio = new Audio(WinAudio);
         if(click.nextSibling.className === "black-player king"){
             winner.children[0].innerText = "White WIN!";
             winner.style.display = "flex";
+            winingAudio.play();
         } else if(click.nextSibling.className === "white-player king"){
             winner.children[0].innerText = "Black WIN!";
             winner.style.display = "flex";
+            winingAudio.play();
         }
+
+        
+        
 
         parentEle.click();
         
@@ -95,5 +85,9 @@ function piecesPattern(e){
             element.style.backgroundColor = "";
         });
 
-        localStorage.clear();
+    //Checkmate
+    Checkmate(click, positionColor, colorInRGB);
+
+    localStorage.clear();
 }
+

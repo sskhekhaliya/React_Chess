@@ -1,5 +1,9 @@
-main {
+.App {
   text-align: center;
-  vertical-align: center;
-  line-height: 100vh
+    display: flex;
+    height: 100vh;
+    top: 0;
+    width: 100vw;
+    align-items: center;
+    justify-content: center;
 }
