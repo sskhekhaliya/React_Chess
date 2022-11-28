@@ -3,13 +3,19 @@ export default function Pawn(row, col, piece, positionColor){
     var positions;
 
     if(piece.split("-")[0] === "black"){
+
         positions = ["R" + (row+1) + "C" + (col-1),
         "R" + (row+1) + "C" + col,
-        "R" + (row+1) + "C" + (col+1)];
+        "R" + (row+1) + "C" + (col+1),
+        "R" +(row+2) + "C" + col
+        ];
+
     } else {
         positions = ["R" + (row-1) + "C" + (col-1),
         "R" + (row-1) + "C" + col,
-        "R" + (row-1) + "C" + (col+1)];
+        "R" + (row-1) + "C" + (col+1),
+        "R" +(row-2) + "C" + col,
+    ];
     }
     
     positions.forEach((e)=>{
@@ -21,6 +27,11 @@ export default function Pawn(row, col, piece, positionColor){
                         el.style.backgroundColor = positionColor;
                     }
                 }
+            } else if(e === positions[3]){
+                if((piece.includes("white") && row === 7) || 
+                (piece.includes("black") && row === 2)){
+                    el.style.backgroundColor = positionColor;
+                }
             } else {
                 if(!el.children[0]){
                 el.style.backgroundColor = positionColor;
@@ -29,4 +40,3 @@ export default function Pawn(row, col, piece, positionColor){
         }
     });
 }
-

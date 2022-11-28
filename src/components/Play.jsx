@@ -5,14 +5,14 @@ import WinAudio from "../assets/sounds/win.wav"
 
 var positionColor = "#76fb646e";
 var colorInRGB = "rgba(118, 251, 100, 0.43)";
+var chance = "white";
 
 export default function Play(e){
     
     const allCols = document.querySelector(".chess-board").children;
 
     if(e.target.parentElement.className === "piece-box"){
-        
-        const parentCol = e.target.parentElement.parentElement;
+            const parentCol = e.target.parentElement.parentElement;
 
         if(localStorage.getItem("chessPiece") && parentCol.id !== localStorage.getItem("chessPiece") && parentCol.style.backgroundColor === colorInRGB){
             piecesPattern(e);
@@ -24,19 +24,20 @@ export default function Play(e){
         const col = parseInt(id[3]);
 
         localStorage.setItem("chessPiece", id);
-            
-        Array.from(allCols).forEach(element => {
-            element.style.backgroundColor = "";
-            if(element.id === id){
-                element.style.backgroundColor = positionColor;
-            }
-        });
 
         const piece = click.children[0].children[1].className;
 
-        ChessMoves(row, col, piece, positionColor);
-        
+        if(piece.includes(chance)){
+            Array.from(allCols).forEach(element => {
+                element.style.backgroundColor = "";
+                if(element.id === id){
+                    element.style.backgroundColor = positionColor;
+                }
+            });
+            ChessMoves(row, col, piece, positionColor);
         }
+        }
+        
     } else {
 
         piecesPattern(e);
@@ -71,14 +72,12 @@ function piecesPattern(e){
             winingAudio.play();
         }
 
-        
-        
-
         parentEle.click();
         
     } else if(click.style.backgroundColor === colorInRGB){
             const selectedPiece = document.getElementById(selectedID).children[0];
             click.appendChild(selectedPiece);
+            chance === "white" ? chance = "black" : chance = "white";
         }
 
         Array.from(allCols).forEach(element => {
