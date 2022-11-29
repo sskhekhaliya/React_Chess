@@ -67,7 +67,7 @@ export default function Board(){
         <div className="controllers">
             <div id="controls" className="controls">
                 <div>
-                <h3>Controller</h3>
+                <h3>Rotate</h3>
                 <div className="controller-btns">
                     <span className="material-symbols-rounded left-btn" onClick={RotateLeft}>
                         refresh
