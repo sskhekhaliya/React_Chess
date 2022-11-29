@@ -3,8 +3,8 @@ import Checkmate from "./Checkmate";
 import ChessMoves from "./moves/ChessMoves";
 import WinAudio from "../assets/sounds/win.wav"
 
-var positionColor = "#76fb646e";
-var colorInRGB = "rgba(118, 251, 100, 0.43)";
+const positionColor = "rgba(118, 251, 100, 0.43)";
+const chekmateColor = "rgb(241, 76, 76)";
 var chance = "white";
 
 export default function Play(e){
@@ -14,7 +14,7 @@ export default function Play(e){
     if(e.target.parentElement.className === "piece-box"){
             const parentCol = e.target.parentElement.parentElement;
 
-        if(localStorage.getItem("chessPiece") && parentCol.id !== localStorage.getItem("chessPiece") && parentCol.style.backgroundColor === colorInRGB){
+        if(localStorage.getItem("chessPiece") && parentCol.id !== localStorage.getItem("chessPiece") && parentCol.style.backgroundColor === positionColor){
             piecesPattern(e);
         } else {
             const click = e.target.parentElement.parentElement;
@@ -23,13 +23,18 @@ export default function Play(e){
         const row = parseInt(id[1]);
         const col = parseInt(id[3]);
 
-        localStorage.setItem("chessPiece", id);
-
         const piece = click.children[0].children[1].className;
 
         if(piece.includes(chance)){
+
+            localStorage.setItem("chessPiece", id);
+
+            const piece = click.children[0].children[1].className;
+            
             Array.from(allCols).forEach(element => {
-                element.style.backgroundColor = "";
+                if (element.style.backgroundColor !== chekmateColor){
+                    element.style.backgroundColor = "";
+                }
                 if(element.id === id){
                     element.style.backgroundColor = positionColor;
                 }
@@ -54,7 +59,7 @@ function piecesPattern(e){
     const whiteContainer = document.getElementById("white-collector");
     const winner = document.getElementById("winner");
 
-    if(click.parentElement.className === "piece-box" && click.parentElement.parentElement.style.backgroundColor === colorInRGB){
+    if(click.parentElement.className === "piece-box" && click.parentElement.parentElement.style.backgroundColor === positionColor){
         const parentEle = click.parentElement.parentElement;
         if(click.nextSibling.className.includes("black")){
             whiteContainer.appendChild(click.parentElement);
@@ -74,7 +79,7 @@ function piecesPattern(e){
 
         parentEle.click();
         
-    } else if(click.style.backgroundColor === colorInRGB){
+    } else if(click.style.backgroundColor === positionColor){
             const selectedPiece = document.getElementById(selectedID).children[0];
             click.appendChild(selectedPiece);
             chance === "white" ? chance = "black" : chance = "white";
@@ -85,7 +90,7 @@ function piecesPattern(e){
         });
 
     //Checkmate
-    Checkmate(click, positionColor, colorInRGB);
+    Checkmate(click, positionColor);
 
     localStorage.clear();
 }

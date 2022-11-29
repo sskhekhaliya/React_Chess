@@ -13,3 +13,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+hr{
+  border-bottom: 0;
+    border-color: rgb(218 220 224 / 48%);
+}
+

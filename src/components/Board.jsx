@@ -7,6 +7,7 @@ import Queen from "../assets/queen.svg";
 import King from "../assets/king.svg";
 import Pawn from "../assets/pawn.svg";
 import Play from "./Play";
+import { RotateRight, RotateLeft, HideShow } from "./controller";
 
 export default function Board(){
 
@@ -25,7 +26,7 @@ export default function Board(){
         </div>
         <div className="container">
             <div id="black-collector"></div>
-        <div className="chess-board">
+        <div id="board" className="chess-board">
             {
                 Array(8).fill(1).map((row, r) =>
                 
@@ -62,6 +63,28 @@ export default function Board(){
             }
         </div>
         <div id="white-collector"></div>
+        </div>
+        <div className="controllers">
+            <div id="controls" className="controls">
+                <div>
+                <h3>Controller</h3>
+                <div className="controller-btns">
+                    <span className="material-symbols-rounded left-btn" onClick={RotateLeft}>
+                        refresh
+                    </span>
+                    <span className="material-symbols-rounded right-btn" onClick={RotateRight}>
+                        refresh
+                    </span>
+                </div>
+                </div>
+                <hr />
+                <p>Hide controller</p>
+            </div>
+            <div id="controls-visible-btn" className="hide-show-btn">
+                <span className="material-symbols-rounded" onClick={HideShow}>
+                    visibility_off
+                </span>
+            </div>
         </div>
         </>
     )

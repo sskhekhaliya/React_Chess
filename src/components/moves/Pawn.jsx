@@ -28,8 +28,8 @@ export default function Pawn(row, col, piece, positionColor){
                     }
                 }
             } else if(e === positions[3]){
-                if((piece.includes("white") && row === 7) || 
-                (piece.includes("black") && row === 2)){
+                if(((piece.includes("white") && row === 7) ||
+                (piece.includes("black") && row === 2)) && !el.children[0]){
                     el.style.backgroundColor = positionColor;
                 }
             } else {
